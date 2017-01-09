@@ -15,7 +15,6 @@ var videoNames = [
 	"trim/workingOut.mov"
 	];
 
-var song;
 var v;
 var divs = 10;
 var noobTimeline = 0;
@@ -35,8 +34,6 @@ function preload(){
 		v.hide();
 		videos.push(v);
 	}
-
-	song = loadSound('trim/lucky_dragons_-_power_melody.mp3');
 }
 
 function setup(){
