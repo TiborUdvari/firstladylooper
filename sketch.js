@@ -1,3 +1,5 @@
+console.log("Hey there. I like you. wink, wink!");
+console.log("Here's the project on the githubs: https://github.com/TiborUdvari/firstladylooper");
 
 var videos = [];
 var videoNames = [
