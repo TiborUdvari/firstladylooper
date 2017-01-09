@@ -91,13 +91,15 @@ function draw() {
 	fill(255);
 	var vid = videos[currentVidIdx];
 	var playing = vid.elt.currentTime > 0 && vid.elt.paused === false && vid.elt.ended === false;
-
+	
+	fill(255);
+	rect(width / 2 - s / 2,  .1 * height, s, s);
+	
 	if (playing) {
 		 image(videos[currentVidIdx], width / 2 - s / 2,  .1 * height, s, s); // draw the video frame to canvas
 		 pg.image(videos[currentVidIdx], 0, 0, s, s);
 		} else {
-		//fill(255, 0, 0);
-		//rect(width / 2 - s / 2,  .1 * height, s, s);
+
 		image(pg, width / 2 - s / 2,  .1 * height, s, s);
 	}
 
