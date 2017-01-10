@@ -96,8 +96,8 @@ function draw() {
 	var vid = videos[currentVidIdx];
 	var playing = vid.elt.currentTime > 0 && vid.elt.paused === false && vid.elt.ended === false;
 	
-	fill(255);
-	rect(width / 2 - s / 2,  .1 * height, s, s);
+	//fill(255);
+	//rect(width / 2 - s / 2,  .1 * height, s, s);
 	
 	if (playing) {
 		 image(videos[currentVidIdx], width / 2 - s / 2,  .1 * height, s, s); // draw the video frame to canvas
