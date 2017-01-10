@@ -33,6 +33,8 @@ var mobile = mobileAndTabletcheck();
 function preload(){
 	for (var i = 0; i < videoNames.length; i++){
 		var v = createVideo( [ videoNames[i] ] );
+		console.log(v);
+		v.elt.setAttribute("playsinline", true);
 		v.hide();
 		videos.push(v);
 	}
@@ -79,7 +81,7 @@ function setup(){
 
 function draw() {
 		background(0);
-
+/*
 	if (mobile) {
 			fill(255);
 			textAlign(CENTER, CENTER);
@@ -87,7 +89,9 @@ function draw() {
 			text("Doesn't work on mobile.\n Sad.", width / 2, height/2);
 			noLoop();
 			return;
-	}
+	}*/
+
+
 	fill(255);
 	var vid = videos[currentVidIdx];
 	var playing = vid.elt.currentTime > 0 && vid.elt.paused === false && vid.elt.ended === false;
@@ -131,19 +135,20 @@ function draw() {
 }
 
 function touchStarted(){
-	console.log("test");
+	console.log("touch started");
+	handleInputAt(touches[0].x, touches[0].y);
 }
 
-function touchEnded(){
-	console.log("test");
-}
-
-function mousePressed(){
-	var h = mouseY - height * .5;
+function handleInputAt(x, y) {
+	var h = y - height * .5;
 	var delta = s / videos.length;
 	var idx = Math.floor(h / delta);
 	idx = constrain(idx, 0, videos.length - 1);
 	handleInputForIdx(idx);
+}
+
+function mousePressed(){
+	handleInputAt(mouseX, mouseY);
 }
 
 function handleInputForIdx(idx){
@@ -158,6 +163,7 @@ function handleInputForIdx(idx){
 }
 
 function keyPressed() {
+	if (mobile) return;
 	var k = key.toLowerCase();
 	if (keys.indexOf(k) > -1) {
 		var idx = keyToIdx[k];
