@@ -99,7 +99,7 @@ function draw() {
 	//fill(255);
 	//rect(width / 2 - s / 2,  .1 * height, s, s);
 	
-	if (playing) {
+	if (playing) {// Update if playing ended
 		 image(videos[currentVidIdx], width / 2 - s / 2,  .1 * height, s, s); // draw the video frame to canvas
 		 pg.image(videos[currentVidIdx], 0, 0, s, s);
 		} else {
