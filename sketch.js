@@ -29,6 +29,8 @@ var currentVidIdx = 0;
 var pg;
 var loopTime = 275;
 
+var started = false;
+
 function preload(){
 	for (var i = 0; i < videoNames.length; i++){
 		var v = createVideo( [ videoNames[i] ] );
@@ -39,15 +41,17 @@ function preload(){
 	}
 }
 
+function setupValues(){
+	s = height * .4;
+	pg = createGraphics(s, s);
+	timelineIncrement = s / divs;
+}
+
 function setup(){
 		createCanvas(window.innerWidth, window.innerHeight);
-		fill(255);
+		
+		setupValues();
 
-		s = height * .4;
-
-		pg = createGraphics(s, s);
-
-		timelineIncrement = s / divs;
 		setInterval(function(){
 			noobTimeline = (noobTimeline + 1) % divs;
 
@@ -85,14 +89,8 @@ el.addEventListener("touchcancel", handleCancel, false);
 el.addEventListener("touchmove", handleMove, false);
 }
 
-function draw() {
-	background(0);
-
-	fill(255);
-	var vid = videos[currentVidIdx];
-	var playing = vid.elt.currentTime > 0 && vid.elt.paused === false && vid.elt.ended === false;
-	
-	textSize(32);
+function showTitle(){
+	textSize(20);
 	textAlign(LEFT, CENTER);
 
 	text("first\nlady\nlooper", width / 2 , .3 * height);
@@ -100,10 +98,22 @@ function draw() {
 	stroke(255);
 	rect(width / 2 - s / 2 + 1,  .1 * height, s -2, s);
 	fill(255);
+}
+
+function draw() {
+	background(0);
+
+	fill(255);
+	var vid = videos[currentVidIdx];
+	var playing = vid.elt.currentTime > 0 && vid.elt.paused === false && vid.elt.ended === false;
+	
+	if (!started) {
+		showTitle();
+	}
 
 	stroke(0);
-		textAlign(RIGHT, CENTER);
-		textSize(10);
+	textAlign(RIGHT, CENTER);
+	textSize(10);
 
 	if (playing) {// Update if playing ended
 		 image(videos[currentVidIdx], width / 2 - s / 2,  .1 * height, s, s); // draw the video frame to canvas
@@ -167,6 +177,8 @@ function handleInputAt(x, y) {
 }
 
 function handleInputForIdx(idx, timeIdx){
+	started = true;
+
 	var beats = timelineData[idx].beats;
 	var beatIdx = beats.indexOf(timeIdx);
 	if (beatIdx > -1) {
@@ -201,3 +213,8 @@ function handleMove(e){
 	e.preventDefault();
 }
 
+function windowResized() {
+	console.log("window resized");
+  resizeCanvas(windowWidth, windowHeight);
+  setupValues();
+}
